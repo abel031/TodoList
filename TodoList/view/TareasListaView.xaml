@@ -10,31 +10,29 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ListView x:Name="MyListView"
-                ItemsSource="{Binding Items}"
+                ItemsSource="{Binding Tareas}"
                 ItemTapped="Handle_ItemTapped"
                 CachingStrategy="RecycleElement">
-            <!--Built in Cells-->
+            <!--Built in Cells
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding .}" />
+                    <TextCell Text="{Binding Descripcion}" />
                 </DataTemplate>
-            </ListView.ItemTemplate>
+            </ListView.ItemTemplate>-->
 
             <!--Custom View Cells-->
-            <!--
-        <ListView.ItemTemplate>
-          <DataTemplate>
-            <ViewCell>
-              <StackLayout>
-                <Label Text="{Binding Text}" 
-                       Style="{DynamicResource ListItemTextStyle}" />
-                <Label Text="{Binding Detail}" 
-                       Style="{DynamicResource ListItemDetailTextStyle}"/>
-              </StackLayout>
-            </ViewCell>
-          </DataTemplate>
-        </ListView.ItemTemplate>
-        -->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding Descripcion}" 
+                           Style="{DynamicResource ListItemTextStyle}" />
+                            <Label Text="{Binding FechaPlazo}" 
+                           Style="{DynamicResource ListItemDetailTextStyle}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
     </ContentPage.Content>
 </ContentPage>

@@ -18,6 +18,13 @@ namespace TodoList.helpers
         public TodoListDB()
         {
             ConectionDatabase.CreateTableAsync<Tarea>();
+            Providers.daoTareas.InsertAsync(new Tarea
+            {
+                Descripcion = "test",
+                FechaCreacion = "10/01/2021",
+                FechaFinalizacion = "12/01/2021",
+                FechaPlazo = DateTime.Now.ToString("dd/MM/yyyy"),
+            });
         }
     }
 }

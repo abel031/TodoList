@@ -18,11 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="dao\" />
-    <Folder Include="viewModel\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="view\TareasListaView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
