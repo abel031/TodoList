@@ -15,16 +15,16 @@ namespace TodoList.helpers
 
         public static SQLiteAsyncConnection ConectionDatabase => lazyInitializer.Value;
 
-        public TodoListDB()
+        static TodoListDB()
         {
             ConectionDatabase.CreateTableAsync<Tarea>();
-            Providers.daoTareas.InsertAsync(new Tarea
+           /* Providers.daoTareas.InsertAsync(new Tarea
             {
                 Descripcion = "test",
                 FechaCreacion = "10/01/2021",
-                FechaFinalizacion = "12/01/2021",
+                FechaFinalizacion = "",
                 FechaPlazo = DateTime.Now.ToString("dd/MM/yyyy"),
-            });
+            });*/
         }
     }
 }

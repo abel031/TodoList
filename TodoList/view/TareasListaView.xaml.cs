@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using TodoList.model;
 using TodoList.viewModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -24,16 +25,31 @@ namespace TodoList.view
         {
             if (e.Item == null)
                 return;
+            if (!vm.TareaSeleccionada.Guardada && vm.TareaSeleccionada != null)
+            {
+                await DisplayAlert("Error","Elemento no Guardado","OK");
+            }
+            else
+            {
+                if (e.Item != vm.TareaSeleccionada && vm.TareaSeleccionada != null)
+                {
+                    vm.TareaSeleccionada.Edicion = false;
+                }
+                vm.TareaSeleccionada = (Tarea)e.Item;
+                vm.TareaSeleccionada.Edicion = true;
+                vm.TareaSeleccionada.Guardada = false;
+            }
 
-            await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
-
-            //Deselect Item
-            ((ListView)sender).SelectedItem = null;
         }
 
         private void ToolbarItemAdd_Clicked(object sender, EventArgs e)
         {
+            vm.AddTarea();
+        }
 
+        private void Guardar(object sender, EventArgs e)
+        {
+            vm.GuardaTarea();
         }
     }
 }

@@ -21,9 +21,17 @@ namespace TodoList.dao
             return this.connection.Table<Tarea>().ToListAsync();
         }
 
-        public Task<int> InsertAsync(Tarea tarea)
+        public int Insert(Tarea tarea)
         {
-            return this.connection.InsertAsync(tarea);
+            if(tarea.ID == 0)
+            {
+                return this.connection.InsertAsync(tarea).Result;
+            }
+            else
+            {
+                return this.connection.UpdateAsync(tarea).Result;
+            }
+            
         }
     }
 }

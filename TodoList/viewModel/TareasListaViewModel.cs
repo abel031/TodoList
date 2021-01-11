@@ -11,6 +11,7 @@ namespace TodoList.viewModel
     class TareasListaViewModel : ViewModelBase
     {
         private ObservableCollection<Tarea> _Tareas { get; set; }
+        public Tarea TareaSeleccionada { get; set; }
         public ObservableCollection<Tarea> Tareas
         {
             get { return _Tareas; }
@@ -27,5 +28,18 @@ namespace TodoList.viewModel
             Tareas = new ObservableCollection<Tarea>(tTarea.Result);
         }
 
+        internal void AddTarea()
+        {
+            TareaSeleccionada = new Tarea();
+            OnPropertyChanged("TareaSeleccionada");
+            Tareas.Insert(0, TareaSeleccionada);
+        }
+
+        internal void GuardaTarea()
+        {
+            Providers.daoTareas.Insert(TareaSeleccionada);
+            TareaSeleccionada.Edicion = false;
+            TareaSeleccionada.Guardada = true;
+        }
     }
 }

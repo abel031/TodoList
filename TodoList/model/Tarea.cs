@@ -10,22 +10,23 @@ namespace TodoList.model
     public class Tarea : NotifyPropertyBase
     {
         [PrimaryKey,AutoIncrement]
-        private long ID { get; set; }
-        private string _FechaCreacion;
-        private string _FechaFinalizacion;
-        private string _FechaPlazo;
+        public long ID { get; set; }
+        private DateTime _FechaCreacion;
+        private DateTime _FechaFinalizacion;
+        private DateTime _FechaPlazo;
         private string _Descripcion;
         private bool _Edicion;
+        private bool _Guardada;
 
         public Tarea()
         {
-            FechaCreacion = DateTime.Now.ToString("dd/MM/yyyy");
-            FechaFinalizacion = DateTime.Now.ToString("dd/MM/yyyy");
-            FechaPlazo = DateTime.Now.ToString("dd/MM/yyyy");
+            FechaCreacion = DateTime.Now;
+            FechaFinalizacion = DateTime.Now;
+            FechaPlazo = DateTime.Now;
             Edicion = false;
         }
 
-        public string FechaCreacion
+        public DateTime FechaCreacion
         {
             get { return _FechaCreacion; }
             set
@@ -35,7 +36,7 @@ namespace TodoList.model
             }
         }
 
-        public string FechaFinalizacion
+        public DateTime FechaFinalizacion
         {
             get { return _FechaFinalizacion; }
             set
@@ -45,13 +46,14 @@ namespace TodoList.model
             }
         }
 
-        public string FechaPlazo
+        public DateTime FechaPlazo
         {
             get { return _FechaPlazo; }
             set
             {
                 _FechaPlazo = value;
                 OnPropertyChanged();
+                OnPropertyChanged("DiasRestantes");
             }
         }
 
@@ -65,6 +67,7 @@ namespace TodoList.model
             }
         }
 
+        [Ignore]
         public bool Edicion
         {
             get { return _Edicion; }
@@ -74,5 +77,26 @@ namespace TodoList.model
                 OnPropertyChanged();
             }
         }
+
+        [Ignore]
+        public int DiasRestantes
+        {
+            get
+            {
+                return (FechaPlazo - DateTime.Now).Days;
+            }
+        }
+
+        [Ignore]
+        public bool Guardada
+        {
+            get { return _Guardada; }
+            set
+            {
+                _Guardada = value;
+                OnPropertyChanged();
+            }
+        }
+
     }
 }

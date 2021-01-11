@@ -13,7 +13,6 @@ namespace TodoList
             InitializeComponent();
 
             MainPage = new NavigationPage(new TareasListaView());
-            new TodoListDB();
         }
 
         protected override void OnStart()

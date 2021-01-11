@@ -25,10 +25,28 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout>
-                            <Label Text="{Binding Descripcion}" 
-                           Style="{DynamicResource ListItemTextStyle}" />
-                            <Label Text="{Binding FechaPlazo}" 
-                           Style="{DynamicResource ListItemDetailTextStyle}"/>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="Descripción" Grid.Row="0" Grid.Column="0"/>
+                                <Entry Text="{Binding Descripcion}" Grid.Row="0" Grid.Column="1" IsEnabled="{Binding Edicion}"/>
+                                <ImageButton Source="{OnPlatform UWP='Assets/guardar.png', Android='guardar.png'}" 
+                                             Clicked="Guardar" Grid.Row="0" Grid.Column="2"
+                                             Aspect="AspectFit" WidthRequest="30" HeightRequest="30" IsVisible="{Binding Edicion}"/>
+                                <Label Text="Fecha Plazo" Grid.Row="1" Grid.Column="0"/>
+                                <DatePicker Date="{Binding FechaPlazo}" Format="d" Grid.Row="1" Grid.Column="1" IsEnabled="{Binding Edicion}"/>
+                                <Label Text="Dias Restantes" Grid.Row="2" Grid.Column="0"/>
+                                <Label Text="{Binding DiasRestantes}" Grid.Row="2" Grid.Column="1"/>
+                            </Grid>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
