@@ -25,7 +25,7 @@ namespace TodoList.view
         {
             if (e.Item == null)
                 return;
-            if (!vm.TareaSeleccionada.Guardada && vm.TareaSeleccionada != null)
+            if (vm.TareaSeleccionada != null && !vm.TareaSeleccionada.Guardada )
             {
                 await DisplayAlert("Error","Elemento no Guardado","OK");
             }

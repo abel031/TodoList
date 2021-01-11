@@ -24,6 +24,7 @@ namespace TodoList.model
             FechaFinalizacion = DateTime.Now;
             FechaPlazo = DateTime.Now;
             Edicion = false;
+            Guardada = true;
         }
 
         public DateTime FechaCreacion
