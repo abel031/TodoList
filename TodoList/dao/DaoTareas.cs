@@ -38,5 +38,15 @@ namespace TodoList.dao
         {
             return this.connection.DeleteAsync(tarea).Result;
         }
+
+        public Task<List<Tarea>> SortTareasAsync()
+        {
+            return this.connection.Table<Tarea>().OrderBy(x => x.FechaPlazo).ToListAsync();
+        }
+
+        public Task<List<Tarea>> Busqueda(string text)
+        {
+            return this.connection.QueryAsync<Tarea>("select * from Tareas where descripcion like '%" + text+"%'");
+        }
     }
 }

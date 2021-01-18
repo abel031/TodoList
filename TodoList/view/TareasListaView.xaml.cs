@@ -62,9 +62,14 @@ namespace TodoList.view
             
         }
 
-        /*protected virtual void OnClo()
+        private void Sort(object sender, EventArgs e)
         {
-            DisplayAlert("Error", "Elemento no Guardado", "OK");
-        }*/
+            vm.Sort();
+        }
+
+        private void cambia(object sender, TextChangedEventArgs e)
+        {
+            vm.Busqueda(e.NewTextValue);
+        }
     }
 }

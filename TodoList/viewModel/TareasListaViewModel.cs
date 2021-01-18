@@ -28,6 +28,8 @@ namespace TodoList.viewModel
             Tareas = new ObservableCollection<Tarea>(tTarea.Result);
         }
 
+        private Boolean sorted { get; set; } = false;
+
         internal void AddTarea()
         {
             TareaSeleccionada = new Tarea();
@@ -48,6 +50,28 @@ namespace TodoList.viewModel
             Providers.daoTareas.Borrar(TareaSeleccionada);
             this.Tareas.Remove(TareaSeleccionada);
             TareaSeleccionada = null;
+        }
+
+        internal void Sort()
+        {
+            if (!sorted)
+            {
+                Task<List<Tarea>> oTarea = Providers.daoTareas.SortTareasAsync();
+                Tareas = new ObservableCollection<Tarea>(oTarea.Result);
+                sorted = true;
+            }
+            else
+            {
+                Task<List<Tarea>> tTarea = Providers.daoTareas.AllTareasAsync();
+                Tareas = new ObservableCollection<Tarea>(tTarea.Result);
+                sorted = false;
+            }   
+        }
+
+        internal void Busqueda(string text)
+        {
+            Task<List<Tarea>> bTarea = Providers.daoTareas.Busqueda(text);
+            Tareas = new ObservableCollection<Tarea>(bTarea.Result);
         }
     }
 }

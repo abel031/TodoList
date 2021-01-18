@@ -21,12 +21,10 @@ namespace TodoList
 
         protected override void OnSleep()
         {
-            Console.WriteLine("Sleep");
         }
 
         protected override void OnResume()
         {
-            Console.WriteLine("resume");
         }
     }
 }
