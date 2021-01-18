@@ -41,5 +41,13 @@ namespace TodoList.viewModel
             TareaSeleccionada.Edicion = false;
             TareaSeleccionada.Guardada = true;
         }
+
+        internal void BorrarTarea()
+        {
+
+            Providers.daoTareas.Borrar(TareaSeleccionada);
+            this.Tareas.Remove(TareaSeleccionada);
+            TareaSeleccionada = null;
+        }
     }
 }

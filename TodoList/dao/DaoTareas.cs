@@ -33,5 +33,10 @@ namespace TodoList.dao
             }
             
         }
+
+        public int Borrar(Tarea tarea)
+        {
+            return this.connection.DeleteAsync(tarea).Result;
+        }
     }
 }

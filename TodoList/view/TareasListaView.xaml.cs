@@ -51,5 +51,20 @@ namespace TodoList.view
         {
             vm.GuardaTarea();
         }
+
+        private async void Borrar(object sender, EventArgs e)
+        {
+            bool answer = await DisplayAlert("Borrar", "Esta seguro de que quiere borrar", "Si", "No");
+            if (answer)
+            {
+                vm.BorrarTarea();
+            }
+            
+        }
+
+        /*protected virtual void OnClo()
+        {
+            DisplayAlert("Error", "Elemento no Guardado", "OK");
+        }*/
     }
 }
