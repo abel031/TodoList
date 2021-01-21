@@ -10,9 +10,11 @@ namespace TodoList.viewModel
 {
     class TareasListaViewModel : ViewModelBase
     {
-        private ObservableCollection<Tarea> _Tareas { get; set; }
+        //private ObservableCollection<Tarea> _Tareas { get; set; }
+        private ObservableCollection<Tarea> _TareasAcabadas { get; set; }
+        private ObservableCollection<Tarea> _TareasInacabadas { get; set; }
         public Tarea TareaSeleccionada { get; set; }
-        public ObservableCollection<Tarea> Tareas
+        /*public ObservableCollection<Tarea> Tareas
         {
             get { return _Tareas; }
             set
@@ -20,12 +22,36 @@ namespace TodoList.viewModel
                 _Tareas = value;
                 OnPropertyChanged();
             }
+        }*/
+        public ObservableCollection<Tarea> TareasAcabadas
+        {
+            get { return _TareasAcabadas; }
+            set
+            {
+                _TareasAcabadas = value;
+                OnPropertyChanged();
+            }
+        }
+        public ObservableCollection<Tarea> TareasInacabadas
+        {
+            get { return _TareasInacabadas; }
+            set
+            {
+                _TareasInacabadas = value;
+                OnPropertyChanged();
+            }
         }
 
         public TareasListaViewModel()
         {
-            Task<List<Tarea>> tTarea = Providers.daoTareas.AllTareasAsync();
-            Tareas = new ObservableCollection<Tarea>(tTarea.Result);
+            /*Task<List<Tarea>> tTarea = Providers.daoTareas.AllTareasAsync();
+            Tareas = new ObservableCollection<Tarea>(tTarea.Result);*/
+
+            Task<List<Tarea>> tTareaI = Providers.daoTareas.AllTareasInac();
+            TareasInacabadas = new ObservableCollection<Tarea>(tTareaI.Result);
+
+            Task<List<Tarea>> tTareaA = Providers.daoTareas.AllTareasAcab();
+            TareasAcabadas = new ObservableCollection<Tarea>(tTareaA.Result);
         }
 
         private Boolean sorted { get; set; } = false;
@@ -34,7 +60,7 @@ namespace TodoList.viewModel
         {
             TareaSeleccionada = new Tarea();
             OnPropertyChanged("TareaSeleccionada");
-            Tareas.Insert(0, TareaSeleccionada);
+            TareasInacabadas.Insert(0, TareaSeleccionada);
         }
 
         internal void GuardaTarea()
@@ -48,7 +74,8 @@ namespace TodoList.viewModel
         {
 
             Providers.daoTareas.Borrar(TareaSeleccionada);
-            this.Tareas.Remove(TareaSeleccionada);
+            this.TareasInacabadas.Remove(TareaSeleccionada);
+            this.TareasAcabadas.Remove(TareaSeleccionada);
             TareaSeleccionada = null;
         }
 
@@ -56,22 +83,41 @@ namespace TodoList.viewModel
         {
             if (!sorted)
             {
-                Task<List<Tarea>> oTarea = Providers.daoTareas.SortTareasAsync();
-                Tareas = new ObservableCollection<Tarea>(oTarea.Result);
+                Task<List<Tarea>> oTareaI = Providers.daoTareas.SortTareasInacabadasAsync();
+                TareasInacabadas = new ObservableCollection<Tarea>(oTareaI.Result);
+                Task<List<Tarea>> oTareaA = Providers.daoTareas.SortTareasAcabadasAsync();
+                TareasAcabadas = new ObservableCollection<Tarea>(oTareaA.Result);
                 sorted = true;
             }
             else
             {
-                Task<List<Tarea>> tTarea = Providers.daoTareas.AllTareasAsync();
-                Tareas = new ObservableCollection<Tarea>(tTarea.Result);
+                Task<List<Tarea>> tTareaI = Providers.daoTareas.AllTareasInac();
+                TareasInacabadas = new ObservableCollection<Tarea>(tTareaI.Result);
+                Task<List<Tarea>> tTareaA = Providers.daoTareas.AllTareasAcab();
+                TareasAcabadas = new ObservableCollection<Tarea>(tTareaA.Result);
                 sorted = false;
             }   
         }
 
         internal void Busqueda(string text)
         {
-            Task<List<Tarea>> bTarea = Providers.daoTareas.Busqueda(text);
-            Tareas = new ObservableCollection<Tarea>(bTarea.Result);
+            Task<List<Tarea>> bTareaA = Providers.daoTareas.BusquedaAcabadas(text);
+            TareasAcabadas = new ObservableCollection<Tarea>(bTareaA.Result);
+            Task<List<Tarea>> bTareaI = Providers.daoTareas.BusquedaInacabadas(text);
+            TareasInacabadas = new ObservableCollection<Tarea>(bTareaI.Result);
+        }
+
+        internal void Acabar()
+        {
+            TareaSeleccionada.FechaFinalizacion = DateTime.Now;
+            TareaSeleccionada.Terminada = true;
+            Providers.daoTareas.Insert(TareaSeleccionada);
+            TareaSeleccionada.Edicion = false;
+            TareaSeleccionada.Guardada = true;
+            TareasInacabadas.Remove(TareaSeleccionada);
+            TareasAcabadas.Add(TareaSeleccionada);
+            OnPropertyChanged("TareasAcabadas");
+            OnPropertyChanged("TareasInacabadas");
         }
     }
 }

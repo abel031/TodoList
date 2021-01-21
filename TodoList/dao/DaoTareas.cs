@@ -46,7 +46,40 @@ namespace TodoList.dao
 
         public Task<List<Tarea>> Busqueda(string text)
         {
-            return this.connection.QueryAsync<Tarea>("select * from Tareas where descripcion like '%" + text+"%'");
+            return this.connection.QueryAsync<Tarea>("select * from Tareas where descripcion like '%" + text + "%'");
+        }
+
+        //Tareas Acabadas
+        public Task<List<Tarea>> AllTareasAcab()
+        {
+            return this.connection.QueryAsync<Tarea>("select * from Tareas where Terminada=true");
+        }
+
+        public Task<List<Tarea>> SortTareasAcabadasAsync()
+        {
+            return this.connection.Table<Tarea>().Where(x=>x.Terminada == true).OrderBy(x => x.FechaPlazo).ToListAsync();
+        }
+
+        public Task<List<Tarea>> BusquedaAcabadas(string text)
+        {
+            return this.connection.QueryAsync<Tarea>("select * from Tareas where descripcion like '%" + text + "%' and Terminada = true");
+        }
+
+        //Tareas Inacabadas
+
+        public Task<List<Tarea>> AllTareasInac()
+        {
+            return this.connection.QueryAsync<Tarea>("select * from Tareas where Terminada=false");
+        }
+
+        public Task<List<Tarea>> BusquedaInacabadas(string text)
+        {
+            return this.connection.QueryAsync<Tarea>("select * from Tareas where descripcion like '%" + text + "%' and Terminada = false");
+        }
+
+        public Task<List<Tarea>> SortTareasInacabadasAsync()
+        {
+            return this.connection.Table<Tarea>().Where(x=>x.Terminada == false).OrderBy(x => x.FechaPlazo).ToListAsync();
         }
     }
 }

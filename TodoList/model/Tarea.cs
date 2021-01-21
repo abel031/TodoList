@@ -17,6 +17,7 @@ namespace TodoList.model
         private string _Descripcion;
         private bool _Edicion;
         private bool _Guardada;
+        private bool _Terminada;
 
         public Tarea()
         {
@@ -67,6 +68,17 @@ namespace TodoList.model
                 OnPropertyChanged();
             }
         }
+
+        public bool Terminada
+        {
+            get { return _Terminada; }
+            set
+            {
+                _Terminada = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         [Ignore]
         public bool Edicion

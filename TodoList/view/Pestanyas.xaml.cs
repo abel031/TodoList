@@ -12,9 +12,13 @@ namespace TodoList.view
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Pestanyas : TabbedPage
     {
-        public Pestanyas()
+        
+       public Pestanyas()
         {
-            InitializeComponent();
+            
+            Children.Add(new TareasListaInacabadasView());
+            Children.Add(new TareasListaAcabadasView());
         }
+
     }
 }

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TodoList.view.TareasListaAcabadasView"
+             Title="Acabadas">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Clicked="ToolbarItemAdd_Clicked"
+            IconImageSource="{OnPlatform UWP='Assets/plus.png', Android='plus.png'}">
+        </ToolbarItem>
+        <ToolbarItem
+            Clicked="Borrar"
+            IconImageSource="{OnPlatform UWP='Assets/borrar.png', Android='borrar.png'}">
+        </ToolbarItem>
+        <ToolbarItem
+            Clicked="Sort"
+            IconImageSource="{OnPlatform UWP='Assets/sort.png', Android='sort.png'}">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <SearchBar Placeholder="Buscar" TextChanged="cambia"/>
+            <ListView x:Name="MyListView"
+                    ItemsSource="{Binding TareasAcabadas}"
+                    ItemTapped="Handle_ItemTapped"
+                    CachingStrategy="RecycleElement">
+                <!--Built in Cells
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Descripcion}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>-->
+
+                <!--Custom View Cells-->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="Descripción" Grid.Row="0" Grid.Column="0"/>
+                                    <Entry Text="{Binding Descripcion}" Grid.Row="0" Grid.Column="1" IsEnabled="{Binding Edicion}"/>
+                                    <ImageButton Source="{OnPlatform UWP='Assets/guardar.png', Android='guardar.png'}" 
+                                                 Clicked="Guardar" Grid.Row="0" Grid.Column="2"
+                                                 Aspect="AspectFit" WidthRequest="30" HeightRequest="30" IsVisible="{Binding Edicion}"/>
+                                    <Label Text="Fecha Plazo" Grid.Row="1" Grid.Column="0"/>
+                                    <DatePicker Date="{Binding FechaPlazo}" Format="d" Grid.Row="1" Grid.Column="1" IsEnabled="{Binding Edicion}"/>
+                                    <Label Text="Dias Restantes" Grid.Row="2" Grid.Column="0"/>
+                                    <Label Text="{Binding DiasRestantes}" Grid.Row="2" Grid.Column="1"/>
+                                </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

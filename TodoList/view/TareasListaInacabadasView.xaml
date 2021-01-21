@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TodoList.view.TareasListaView">
+             x:Class="TodoList.view.TareasListaInacabadasView"
+             Title="Inacabadas">
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Clicked="ToolbarItemAdd_Clicked"
@@ -20,7 +21,7 @@
         <StackLayout>
             <SearchBar Placeholder="Buscar" TextChanged="cambia"/>
             <ListView x:Name="MyListView"
-                    ItemsSource="{Binding Tareas}"
+                    ItemsSource="{Binding TareasInacabadas}"
                     ItemTapped="Handle_ItemTapped"
                     CachingStrategy="RecycleElement">
                 <!--Built in Cells
@@ -45,7 +46,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="40"/>
-                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="Descripción" Grid.Row="0" Grid.Column="0"/>
@@ -53,6 +54,7 @@
                                     <ImageButton Source="{OnPlatform UWP='Assets/guardar.png', Android='guardar.png'}" 
                                                  Clicked="Guardar" Grid.Row="0" Grid.Column="2"
                                                  Aspect="AspectFit" WidthRequest="30" HeightRequest="30" IsVisible="{Binding Edicion}"/>
+                                    <Button Text="Acabar" Clicked="Acabar" Grid.Row="0" Grid.Column="3" IsVisible="{Binding Edicion}"/>
                                     <Label Text="Fecha Plazo" Grid.Row="1" Grid.Column="0"/>
                                     <DatePicker Date="{Binding FechaPlazo}" Format="d" Grid.Row="1" Grid.Column="1" IsEnabled="{Binding Edicion}"/>
                                     <Label Text="Dias Restantes" Grid.Row="2" Grid.Column="0"/>

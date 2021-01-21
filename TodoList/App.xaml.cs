@@ -12,7 +12,7 @@ namespace TodoList
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new TareasListaView());
+            MainPage = new NavigationPage(new Pestanyas());
         }
 
         protected override void OnStart()

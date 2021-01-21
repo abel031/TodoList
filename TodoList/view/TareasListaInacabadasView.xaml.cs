@@ -11,11 +11,11 @@ using Xamarin.Forms.Xaml;
 namespace TodoList.view
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TareasListaView : ContentPage
+    public partial class TareasListaInacabadasView : ContentPage
     {
         private TareasListaViewModel vm = new TareasListaViewModel();
 
-        public TareasListaView()
+        public TareasListaInacabadasView()
         {
             InitializeComponent();
             BindingContext = vm;
@@ -70,6 +70,11 @@ namespace TodoList.view
         private void cambia(object sender, TextChangedEventArgs e)
         {
             vm.Busqueda(e.NewTextValue);
+        }
+
+        private void Acabar(object sender, EventArgs e)
+        {
+            vm.Acabar();
         }
     }
 }
