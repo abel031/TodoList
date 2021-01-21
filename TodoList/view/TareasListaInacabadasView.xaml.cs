@@ -19,6 +19,7 @@ namespace TodoList.view
         {
             InitializeComponent();
             BindingContext = vm;
+            vm.Carga();
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
